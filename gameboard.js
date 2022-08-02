@@ -81,8 +81,8 @@ const game = (() =>{
         return;   
     }
     const check_if_winner = () => {
-        let check_player_1 = check_array_equal(player1_gameBoard)
-        let check_player_2 = check_array_equal(player2_gameBoard)
+        let check_player_1 = check_winning_fields(player1_gameBoard)
+        let check_player_2 = check_winning_fields(player2_gameBoard)
         if (check_player_1 === player1_wins){
             displayController.game_announcement.textContent = `Player 1 has won!`
             displayController.disable_all_fields()
@@ -112,7 +112,7 @@ const array_pattern = [
 let player1_wins = true;
 let player2_wins = false;
 
-function check_array_equal(array){
+function check_winning_fields(array){
     let compared_array = displayController.check_each_field()
     for (let i = 0; i <= 7; i++){
         const winCondition = array_pattern[i];
