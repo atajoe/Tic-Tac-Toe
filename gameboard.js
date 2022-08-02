@@ -7,7 +7,6 @@ let round = 0;
 
 
 const displayController = (() => {
-    const gameboard_html = document.querySelector('.gameboard');
     const field = document.querySelectorAll('.field');
     const game_announcement = document.querySelector('.gameannouncement');
     const restart_button = document.querySelector('.restart-button');
@@ -26,7 +25,7 @@ const displayController = (() => {
                 next_turn = false;
                 button.textContent = 'O'
             }
-            roundChecker()
+            game.roundChecker()
             game.check_if_winner()
             check_each_field()
             button.style["pointer-events"] = "none"
@@ -73,7 +72,14 @@ const game = (() =>{
         player2_gameBoard.push(number)
         console.log(`This is the gameboard array now for player_2:`, player2_gameBoard)
     }
-
+    const roundChecker = () =>{
+        round++;
+        if (round === 9){
+            displayController.game_announcement.textContent = 'It is a tie!'
+            displayController.disable_all_fields()
+        }
+        return;   
+    }
     const check_if_winner = () => {
         let check_player_1 = check_array_equal(player1_gameBoard)
         let check_player_2 = check_array_equal(player2_gameBoard)
@@ -85,20 +91,10 @@ const game = (() =>{
             displayController.disable_all_fields()
         }
     }
-    return {print_gameboard, print_message, add_to_player1_gameboard, add_to_player2_gameboard, check_if_winner}
+    return {print_gameboard, print_message, add_to_player1_gameboard, add_to_player2_gameboard, check_if_winner, roundChecker}
 })();
 
 
-
-
-const roundChecker = () =>{
-    round++;
-    if (round === 9){
-        displayController.game_announcement.textContent = 'It is a tie!'
-        displayController.disable_all_fields()
-    }
-    return;   
-}
 
 // Helper Functions
 
